@@ -5,18 +5,19 @@
 ;; - Add support for copying over my time logging data from spreadsheet to the
 ;;   PLAN/REVIEW sections
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'calendar)
 
 (defun create-week-file (&optional week)
   (interactive)
   (if week
       (setq week (number-to-string week))
     (setq week (format-time-string "%W")))
-  (setq week-file (concat "~/org/planviews/weeks/" (format-time-string "%Y-w") week ".org"))
+  (setq week-file (concat "~/org/reviews/weeks/" (format-time-string "%Y-w") week ".org"))
   (if (file-exists-p week-file)
       (find-file week-file)
     (find-file week-file)
     (insert (concat (format-time-string "#+TITLE: %Y, Week ") week "\n"))
-    (insert-file-contents "~/org/planviews/templates/week.org")))
+    (insert-file-contents "~/org/reviews/templates/week.org")))
 
 (defun iso-week-to-date (year week day)
   ;; https://emacs.stackexchange.com/questions/43984/convert-between-iso-week-and-a-normal-date
@@ -41,7 +42,7 @@
   (if week
       (setq week (number-to-string week))
     (setq week (format-time-string "%W")))
-  (concat "~/org/planviews/weeks/" year "-w" week ".org"))
+  (concat "~/org/reviews/weeks/" year "-w" week ".org"))
 
 (defun extract-journal-entry-subtree (entry)
   (if (file-exists-p entry)
